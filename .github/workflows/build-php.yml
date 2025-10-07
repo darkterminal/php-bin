@@ -133,10 +133,9 @@ jobs:
         run: |
           cd ../static-php-cli
           
-          # Prepare build command
-          BUILD_CMD="--build-micro ${{ env.PHP_EXTENSIONS }} --with-php=${{ matrix.version }}"
+          # Here: no --with-php, only extensions + build target
+          BUILD_CMD="${{ env.PHP_EXTENSIONS }} --build-micro"
           
-          # Add Windows-specific options
           if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
             if [[ -f "assets/icon.ico" ]]; then
               cp ../../darkterminal-php-bin/assets/icon.ico .
