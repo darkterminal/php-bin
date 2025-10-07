@@ -1,1 +1,1 @@
-bcmath,brotli,bz2,curl,event,exif,ffi,fileinfo,grpc,imagick,intl,libxml,mbstring,openssl,pcntl,posix,rar,simdjson,sockets,sodium,ssh2,swoole,swow,tokenizer,xml,xz,zip,zlib
+bcmath,bz2,ctype,curl,dom,fileinfo,filter,ftp,gd,intl,iconv,mbstring,mbregex,mysqlnd,opcache,openssl,pdo,pdo_mysql,pdo_sqlite,phar,session,simplexml,sockets,sqlite3,swoole,swow,tokenizer,xmlwriter,xmlreader,xml,zip,zlib
