@@ -61,15 +61,20 @@ jobs:
           tools: composer
           extensions: curl, openssl, mbstring, zip
 
-      - name: Create workspace directories
+      - name: Create workspace directories (Linux / macOS)
+        if: runner.os != 'Windows'
+        shell: bash
         run: |
-          if [[ "${{ matrix.os }}" == "windows-2022" ]]; then
-            mkdir ../static-php-cli/bin -Force
-            mkdir ../php-bin -Force
-          else
-            mkdir -p ../static-php-cli/bin
-            mkdir -p ../php-bin
-          fi
+          mkdir -p ../static-php-cli/bin
+          mkdir -p ../php-bin
+
+      - name: Create workspace directories (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          mkdir ../static-php-cli/bin -Force
+          mkdir ../php-bin -Force
+
 
       - name: Download static-php-cli
         run: |
