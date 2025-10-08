@@ -23,9 +23,9 @@ jobs:
         os:
           - ubuntu-22.04
           - ubuntu-24.04
-          - windows-latest
-          - macos-13
-          - macos-latest
+          - windows-2022
+          - macos-14
+          - macos-14-large
         include:
           - os: ubuntu-22.04
             spc_os: linux
@@ -35,15 +35,15 @@ jobs:
             spc_os: linux
             spc_arch: x64
             spc_binary: spc-linux-x86_64.tar.gz
-          - os: windows-latest
+          - os: windows-2022
             spc_os: win
             spc_arch: x64
             spc_binary: spc-windows-x64.exe
-          - os: macos-13
+          - os: macos-14-large
             spc_os: macos
             spc_arch: x64
             spc_binary: spc-macos-x86_64.tar.gz
-          - os: macos-latest
+          - os: macos-14
             spc_os: macos
             spc_arch: arm64
             spc_binary: spc-macos-aarch64.tar.gz
@@ -72,7 +72,7 @@ jobs:
           SPC_URL="https://github.com/crazywhalecc/static-php-cli/releases/download/${{ env.SPC_VERSION }}/${{ matrix.spc_binary }}"
           echo "Downloading SPC from: $SPC_URL"
           
-          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+          if [[ "${{ matrix.os }}" == "windows-2022" ]]; then
             curl -fsSL -o bin/spc.exe "$SPC_URL"
             chmod +x bin/spc.exe
           else
@@ -82,7 +82,7 @@ jobs:
           fi
           
           # Verify SPC is working
-          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+          if [[ "${{ matrix.os }}" == "windows-2022" ]]; then
             ./bin/spc.exe --version || echo "SPC version check failed"
           else
             ./bin/spc --version || echo "SPC version check failed"
@@ -123,7 +123,7 @@ jobs:
       - name: Download PHP and extension sources
         run: |
           cd ../static-php-cli
-          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+          if [[ "${{ matrix.os }}" == "windows-2022" ]]; then
             ./bin/spc.exe download --with-php=${{ matrix.version }} --for-extensions "${{ env.PHP_EXTENSIONS }}" --prefer-pre-built --retry 3
           else
             ./bin/spc download --with-php=${{ matrix.version }} --for-extensions "${{ env.PHP_EXTENSIONS }}" --prefer-pre-built --retry 3
@@ -136,7 +136,7 @@ jobs:
           # Here: no --with-php, only extensions + build target
           BUILD_CMD="${{ env.PHP_EXTENSIONS }} --build-micro"
           
-          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+          if [[ "${{ matrix.os }}" == "windows-2022" ]]; then
             if [[ -f "assets/icon.ico" ]]; then
               cp ../../darkterminal-php-bin/assets/icon.ico .
               BUILD_CMD="$BUILD_CMD --with-micro-logo=icon.ico"
@@ -179,7 +179,7 @@ jobs:
           retention-days: 7
 
       - name: Create Pull Request with updates
-        if: matrix.os == 'ubuntu-22.04' && matrix.version == '8.3'  # Only create PR from one job to avoid conflicts
+        if: matrix.os == 'ubuntu-22.04' && matrix.version == '8.4'  # Only create PR from one job to avoid conflicts
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
