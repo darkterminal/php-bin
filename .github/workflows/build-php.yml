@@ -63,8 +63,8 @@ jobs:
 
       - name: Create workspace directories
         run: |
-          mkdir -p ../static-php-cli/bin
-          mkdir -p ../php-bin
+          mkdir ../static-php-cli/bin -Force
+          mkdir ../php-bin -Force
 
       - name: Download static-php-cli
         run: |
