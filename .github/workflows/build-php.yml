@@ -63,8 +63,13 @@ jobs:
 
       - name: Create workspace directories
         run: |
-          mkdir ../static-php-cli/bin -Force
-          mkdir ../php-bin -Force
+          if [[ "${{ matrix.os }}" == "windows-2022" ]]; then
+            mkdir ../static-php-cli/bin -Force
+            mkdir ../php-bin -Force
+          else
+            mkdir -p ../static-php-cli/bin
+            mkdir -p ../php-bin
+          fi
 
       - name: Download static-php-cli
         run: |
