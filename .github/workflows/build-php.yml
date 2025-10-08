@@ -141,8 +141,10 @@ jobs:
               cp ../../darkterminal-php-bin/assets/icon.ico .
               BUILD_CMD="$BUILD_CMD --with-micro-logo=icon.ico"
             fi
+            ./bin/spc.exe doctor --auto-fix
             ./bin/spc.exe build $BUILD_CMD
           else
+            ./bin/spc doctor --auto-fix
             ./bin/spc build $BUILD_CMD
           fi
 
